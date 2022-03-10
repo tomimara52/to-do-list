@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { 
 	addTask, 
 	removeTask, 
 	sortTasks,
+	setNextId,
 	raiseNextId,
 } from '../../redux/slices/tasksSlice';
 import Task from '../Task/Task';
@@ -22,6 +23,21 @@ const TasksList = () => {
 	const [seeCompleted, setSeeCompleted] = useState(false);
 	const [addMode, setAddMode] = useState(false);
 	const [titleInputValue, setTitleInputValue] = useState('');
+
+	useEffect(() => {
+		const json = JSON.parse(localStorage.getItem('toDoListData'));
+		if (json) {
+			json.all.forEach(task => {
+				dispatch(addTask(task));
+			});
+			dispatch(setNextId(json.nextId));
+		}
+	}, []);
+
+	useEffect(() => {
+		const json = JSON.stringify(tasks);
+		localStorage.setItem('toDoListData', json);
+	}, [tasks]);
 
 	const swapAddMode = () => setAddMode(!addMode);
 

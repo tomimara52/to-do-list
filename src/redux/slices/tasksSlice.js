@@ -18,6 +18,9 @@ export const tasksSlice = createSlice({
 		sortTasks: (state) => {
 			state.all.sort((a, b) => a.id - b.id);
 		},
+		setNextId: (state, action) => {
+			state.nextId = action.payload;
+		},
 		raiseNextId: (state) => {
 			state.nextId += 1;
 		},
@@ -28,6 +31,7 @@ export const {
 	addTask, 
 	removeTask, 
 	sortTasks, 
-	raiseNextId 
+	setNextId,
+	raiseNextId,
 } = tasksSlice.actions;
 export default tasksSlice.reducer;
