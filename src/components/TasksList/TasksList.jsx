@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, removeTask, sortTasks } from '../../redux/slices/tasksSlice';
+import { 
+	addTask, 
+	removeTask, 
+	sortTasks,
+	raiseNextId,
+} from '../../redux/slices/tasksSlice';
 import Task from '../Task/Task';
 import { 
 	Box, 
@@ -32,10 +37,11 @@ const TasksList = () => {
 	const handleSubmitForm = event => {
 		event.preventDefault();
 		dispatch(addTask({
-			id: tasks.all.length,
+			id: tasks.nextId, 
 			title: titleInputValue,
 			completed: false,
 		}));
+		dispatch(raiseNextId());
 		setTitleInputValue('');
 		swapAddMode();
 	};
@@ -73,24 +79,24 @@ const TasksList = () => {
 				{
 					tasks.all.filter(task => !task.completed || seeCompleted)
 					.map(task => {
-							return (
-								<ListItem 
-									divider
-									key={task.id.toString()}
-									sx={{
-										display: "flex",
-										flexDirection: "row",
-									}}
-								>
-									<Task 
-										className="task"
-										id={task.id}
-										initialTitle={task.title} 
-										initialCompleted={task.completed}
-										deleteTask={id => handleDeleteTask(id)}
-									/>
-								</ListItem>
-							);
+						return (
+							<ListItem 
+								divider
+								key={task.id.toString()}
+								sx={{
+									display: "flex",
+									flexDirection: "row",
+								}}
+							>
+								<Task 
+									className="task"
+									id={task.id}
+									initialTitle={task.title} 
+									initialCompleted={task.completed}
+									deleteTask={id => handleDeleteTask(id)}
+								/>
+							</ListItem>
+						);
 					})
 				}
 				{ addMode 
