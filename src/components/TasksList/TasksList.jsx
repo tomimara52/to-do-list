@@ -32,7 +32,7 @@ const TasksList = () => {
 			});
 			dispatch(setNextId(json.nextId));
 		}
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		const json = JSON.stringify(tasks);
