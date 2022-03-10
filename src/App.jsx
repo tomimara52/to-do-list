@@ -1,6 +1,15 @@
+import {Box} from '@mui/material';
+import TasksPanel from './components/TasksPanel/TasksPanel';
+
 function App() {
   return (
-		<p>hola</p>
+		<Box 
+			sx={{ 
+				padding: "2rem",
+			}}
+		>
+			<TasksPanel />
+		</Box>
   );
 }
 
