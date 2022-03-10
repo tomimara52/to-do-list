@@ -71,8 +71,8 @@ const TasksList = () => {
 			/>
 			<List>
 				{
-					tasks.all.map(task => {
-						if (!task.completed || seeCompleted) {	
+					tasks.all.filter(task => !task.completed || seeCompleted)
+					.map(task => {
 							return (
 								<ListItem 
 									divider
@@ -91,7 +91,6 @@ const TasksList = () => {
 									/>
 								</ListItem>
 							);
-						}
 					})
 				}
 				{ addMode 
